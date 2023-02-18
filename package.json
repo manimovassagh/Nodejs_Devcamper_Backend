@@ -1,0 +1,19 @@
+{
+  "name": "nodejs_devcamper_backend",
+  "version": "1.0.0",
+  "description": "backend to manage a development bootcamps as a user and publisher",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev":"nodemon server"
+  },
+  "author": "Mani Movassagh Ghazani",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
