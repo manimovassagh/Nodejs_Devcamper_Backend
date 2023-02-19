@@ -22,7 +22,7 @@ exports.getBootcamp = (req, res, next) => {
  * @access   Private
  */
 exports.createBootcamp = (req, res, next) => {
-    res.status(200).json({success: true, "msg": "create new bootcamp"});
+    res.status(201).json({success: true, "msg": "create new bootcamp"});
 }
 /**
  * @desc     Update Bootcamp
