@@ -35,7 +35,7 @@ app.use("/api/v1/bootcamps", bootcamps);
 
 const PORT = process.env.PORT || 4000;
 const server = app.listen(4000, () => {
-    console.log(`Server is up and running on port ${PORT}`.brightMagenta)
+    console.log(`Server is up and running on port ${PORT}`.brightYellow)
 });
 
 process.on('unhandledRejection', (err, promise) => {
