@@ -15,9 +15,7 @@ dotenv.config({path: "./config/config.env"});
 const app = express();
 
 //connect to MongoDB
-connectDB()
-
-
+ connectDB();
 
 
 //body parser
