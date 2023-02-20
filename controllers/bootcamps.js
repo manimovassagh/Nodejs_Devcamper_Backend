@@ -1,14 +1,13 @@
-const bootcamp=require('../models/Bootcamp')
+const bootcampRepository = require('../models/Bootcamp')
 /**
  * @desc    Get All Bootcamps
  * @route   GET /api/v1/bootcamps
  * @access  Public
  */
-exports.getBootcamps = (req, res, next) => {
-    res.status(200).json({success: true, "msg": `Get all Bootcamps !!`,middleware:res.special});
+exports.getBootcamps = async (req, res, next) => {
 
-
-
+    const bootcamps = await bootcampRepository.find();
+    res.status(200).json({success: true, data: bootcamps});
 }
 /**
  * @desc    Get Single Bootcamp
@@ -26,9 +25,8 @@ exports.getBootcamp = (req, res, next) => {
  */
 exports.createBootcamp = async (req, res, next) => {
 
-    bootcamp.create(req.body);
-    console.log('The res body is :----------',req.body)
-    res.status(201).json({success: true, data: 'created'});
+    const createdBootcamp = await bootcampRepository.create(req.body);
+    res.status(201).json({success: true, data: createdBootcamp});
     next()
 }
 /**
