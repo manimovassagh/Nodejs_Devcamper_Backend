@@ -4,7 +4,9 @@
  * @access  Public
  */
 exports.getBootcamps = (req, res, next) => {
-    res.status(200).json({success: true, "msg": `Get all Bootcamps !!`});
+    res.status(200).json({success: true, "msg": `Get all Bootcamps !!`,middleware:res.special});
+    console.log(res.special);
+
 
 }
 /**
