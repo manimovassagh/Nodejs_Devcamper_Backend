@@ -1,5 +1,3 @@
-const { getBootcamp } = require("../controllers/bootcamps");
-
 /**
  * @desc     sample logger to show the middleware functionality
  * @author   Mani Movassagh Ghazani
