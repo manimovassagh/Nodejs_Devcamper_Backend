@@ -27,11 +27,11 @@ app.use("/api/v1/bootcamps", bootcamps);
 
 const PORT = process.env.PORT || 4000;
 const server = app.listen(4000, () => {
-    console.log(`Server is up and running on port ${PORT}`.yellow.bold)
+    console.log(`Server is up and running on port ${PORT}`.brightMagenta)
 });
 
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error ${err.message}`)
+    console.log(`Error ${err.message}`.red)
     server.close(() => {
         process.exit(1);
     })
