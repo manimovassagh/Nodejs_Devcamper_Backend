@@ -5,9 +5,13 @@ const bootcampRepository = require('../models/Bootcamp')
  * @access  Public
  */
 exports.getBootcamps = async (req, res, next) => {
-
-    const bootcamps = await bootcampRepository.find();
-    res.status(200).json({success: true, data: bootcamps});
+    try {
+        const bootcamps = await bootcampRepository.find();
+        res.status(200).json({success: true, data: bootcamps});
+    } catch (error) {
+        console.log(`Error in fetching list of bootcamps:  ${error.message}`.red.bold)
+    }
+    next()
 }
 /**
  * @desc    Get Single Bootcamp
@@ -24,9 +28,12 @@ exports.getBootcamp = (req, res, next) => {
  * @access   Private
  */
 exports.createBootcamp = async (req, res, next) => {
-
-    const createdBootcamp = await bootcampRepository.create(req.body);
-    res.status(201).json({success: true, data: createdBootcamp});
+    try {
+        const createdBootcamp = await bootcampRepository.create(req.body);
+        res.status(201).json({success: true, data: createdBootcamp});
+    } catch (error) {
+        console.log(`Error in Creating a new Bootcamp:  ${error.message}`.red.bold)
+    }
     next()
 }
 /**
