@@ -6,8 +6,8 @@
  * @param next
  */
 const logger=(req,res,next)=>{
-    res.special='mani'
-    console.log('Some logger to show on request')
+    console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.url}`)
+    console.log(req)
     next();
 }
 
