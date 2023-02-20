@@ -26,7 +26,8 @@ exports.getBootcamp = (req, res, next) => {
  */
 exports.createBootcamp = async (req, res, next) => {
 
-    bootcamp.create(res.body);
+    bootcamp.create(req.body);
+    console.log('The res body is :----------',req.body)
     res.status(201).json({success: true, data: 'created'});
     next()
 }

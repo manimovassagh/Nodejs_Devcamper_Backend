@@ -3,21 +3,27 @@ const dotenv = require("dotenv");
 const morgan = require('morgan')
 const colors = require('colors')
 const connectDB = require('./config/db')
+const bodyParser = require('body-parser');
+
 //Route files
 const bootcamps = require('./routes/bootcamps')
 
 //init dotenv
 dotenv.config({path: "./config/config.env"});
 
+//init the express app
+const app = express();
 
 //connect to MongoDB
 connectDB()
 
-//init the express app
-const app = express();
+
+
 
 //body parser
-app.use(express.json())
+// parse application/json
+app.use(bodyParser.json())
+
 //apply middlewares
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
