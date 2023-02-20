@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "76ceb7cb-af54-462e-bd79-3a596b405389",
 		"name": "Dev_Bootcamp",
+		"description": "Dev Camper Api : This application is a complete Backend for supporting development bootcamp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13877790"
 	},
@@ -24,7 +25,8 @@
 								"v1",
 								"bootcamps"
 							]
-						}
+						},
+						"description": "Fetch all bootcamps from database"
 					},
 					"response": []
 				},
@@ -44,7 +46,8 @@
 								"bootcamps",
 								"2"
 							]
-						}
+						},
+						"description": "Get specific bootcamp from database"
 					},
 					"response": []
 				},
@@ -63,7 +66,8 @@
 								"v1",
 								"bootcamps"
 							]
-						}
+						},
+						"description": "Create a new bootcamop and save it to database"
 					},
 					"response": []
 				},
@@ -83,7 +87,8 @@
 								"bootcamps",
 								"1"
 							]
-						}
+						},
+						"description": "Edit specific bootcap base on bootcamp ID"
 					},
 					"response": []
 				},
@@ -103,11 +108,13 @@
 								"bootcamps",
 								"1"
 							]
-						}
+						},
+						"description": "Delete a bootcamp"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Crud function for development bootcamps"
 		}
 	],
 	"variable": [
