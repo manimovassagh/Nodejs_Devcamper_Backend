@@ -1,3 +1,4 @@
+const bootcamp=require('../models/Bootcamp')
 /**
  * @desc    Get All Bootcamps
  * @route   GET /api/v1/bootcamps
@@ -5,7 +6,7 @@
  */
 exports.getBootcamps = (req, res, next) => {
     res.status(200).json({success: true, "msg": `Get all Bootcamps !!`,middleware:res.special});
-    console.log(res.special);
+
 
 
 }
@@ -23,8 +24,11 @@ exports.getBootcamp = (req, res, next) => {
  * @route    POST  /api/v1/bootcamps
  * @access   Private
  */
-exports.createBootcamp = (req, res, next) => {
-    res.status(201).json({success: true, "msg": "create new bootcamp"});
+exports.createBootcamp = async (req, res, next) => {
+
+    bootcamp.create(res.body);
+    res.status(201).json({success: true, data: 'created'});
+    next()
 }
 /**
  * @desc     Update Bootcamp

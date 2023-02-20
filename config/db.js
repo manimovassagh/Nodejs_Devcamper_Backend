@@ -1,14 +1,13 @@
 const {connect: connectInitializer} = require('mongoose')
-const mongoose=require('mongoose')
-const connectDb =  () => {
-    mongoose.set('strictQuery', false);
-    connectInitializer(process.env.MONGO_URI).then(()=>{
-        console.log(`Successfully connected to MongoDB `.brightCyan)
-    }).catch((error)=>{
-        console.log('Error in connecting to DB'.red, error)
-    })
+const mongoose = require('mongoose')
+const connectDB = async () => {
+    const conn = await connectInitializer(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline.bold);
+};
 
 
-}
-
-module.exports = connectDb;
+module.exports = connectDB;

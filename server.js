@@ -16,6 +16,8 @@ connectDB()
 //init the express app
 const app = express();
 
+//body parser
+app.use(express.json())
 //apply middlewares
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
