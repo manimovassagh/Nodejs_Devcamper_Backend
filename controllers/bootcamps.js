@@ -8,9 +8,10 @@ const bootcampRepository = require("../models/Bootcamp");
 exports.getBootcamps = async (req, res, next) => {
     try {
         const bootcamps = await bootcampRepository.find();
-        res.status(200).json({success: true, data: bootcamps});
+        res.status(200).json({success: true,'number of bootcamps':bootcamps.length, data: bootcamps});
     } catch (error) {
-        res.status(400).json({success: false, message: 'could not fetch any bootcamp from database'})
+       // res.status(400).json({success: false, message: 'could not fetch any bootcamp from database'})
+        next(error);
     }
 
 };
