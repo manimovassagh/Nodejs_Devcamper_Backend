@@ -114,12 +114,12 @@ exports.deleteBootcamp = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: `successfully deleted the bootcamp with ID number ${req.params.id}`,
-            data: deletedBootcamp
+            data: {}
         })
     } catch (error){
         return res.status(400).json({
             success: false
-            , message: `Error occurred  ${req.params.id}`,
+            , message: `Error occurred for delete the bootcamp  ${req.params.id}`,
             error
         })
     }
