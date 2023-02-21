@@ -12,7 +12,7 @@ exports.getBootcamps = async (req, res, next) => {
     } catch (error) {
         res.status(400).json({success: false, message: 'could not fetch any bootcamp from database'})
     }
-    next();
+
 };
 
 /**
@@ -24,12 +24,19 @@ exports.getBootcamp = async (req, res, next) => {
 
     try {
         const bootcampByID = await bootcampRepository.findById(req.params.id);
+        if (!bootcampByID) {
+            return res.status(400).json({
+                success: false
+                , message: `could not find any bootcamp from database with ID Number ${req.params.id}`
+            })
+        }
+
         res.status(200).json({status: true, data: bootcampByID})
 
     } catch (error) {
         res.status(400).json({
             success: false
-            , message: `could not find any bootcamp from database with ID Number ${req.params.id}`
+            , message: `Bad request : Please request a valid ID with proper format`
         })
     }
 };
@@ -54,14 +61,19 @@ exports.createBootcamp = async (req, res, next) => {
  * @route    PUT  /api/v1/bootcamps/:id
  * @access   Private
  */
-exports.updateBootcamp = (req, res, next) => {
+exports.updateBootcamp = async (req, res, next) => {
+    //check it later and fix
+    //TODO it should find the ID and then update it from database
+    const bootcamp = bootcampRepository.findByIdAndUpdate(req.params.id);
+    if (!bootcamp){
+        return res.status(400).json({
+            success: false
+            , message: `could not find any bootcamp for updating from database with ID Number ${req.params.id}`
+        })
+    }
+    res.status(200).json({status:true,message:`successfully updated the bootcamp with ID number ${req.params.id}`})
 
-    res
-        .status(200)
-        .json({
-            success: true,
-            msg: `Edit bootcamp with id Number ${req.params.id}`,
-        });
+
 };
 
 /**
@@ -69,7 +81,7 @@ exports.updateBootcamp = (req, res, next) => {
  * @route    DELETE  /api/v1/bootcamps/:id
  * @access   Private
  */
-exports.deleteBootcamp = (req, res, next) => {
+exports.deleteBootcamp = async (req, res, next) => {
     res
         .status(200)
         .json({
