@@ -1,5 +1,5 @@
 const bootcampRepository = require("../models/Bootcamp");
-
+const ErrorResponse = require('../utils/errorResponse')
 /**
  * @desc    Get All Bootcamps
  * @route   GET /api/v1/bootcamps
@@ -11,7 +11,7 @@ exports.getBootcamps = async (req, res, next) => {
         res.status(200).json({success: true, 'number of bootcamps': bootcamps.length, data: bootcamps});
     } catch (error) {
         // res.status(400).json({success: false, message: 'could not fetch any bootcamp from database'})
-        next(error);
+        next(new ErrorResponse(`could not fetch Bootcamps from Database : ${error.message}`, 404));
     }
 
 };
@@ -26,21 +26,12 @@ exports.getBootcamp = async (req, res, next) => {
     try {
         const bootcampByID = await bootcampRepository.findById(req.params.id);
         if (!bootcampByID) {
-            return res.status(400).json({
-                success: false
-                , message: `could not find any bootcamp from database with ID Number ${req.params.id}`
-            })
+            return next(new ErrorResponse(`could not find any bootcamp from database with ID Number ${req.params.id}`, 404))
         }
-
         res.status(200).json({success: true, data: bootcampByID})
 
     } catch (error) {
-        next(error)
-        //res.status(400).json({
-          //  success: false
-            //, message: `Bad request : Please request a valid ID with proper format`
-            //, error: error
-        //})
+        next(new ErrorResponse(`Bad Request: Please Enter a valid ID`, 404))
     }
 };
 
@@ -64,7 +55,7 @@ exports.createBootcamp = async (req, res, next) => {
  * @route    PUT  /api/v1/bootcamps/:id
  * @access   Private
  */
-exports.updateBootcamp = async (req, res) => {
+exports.updateBootcamp = async (req, res, next) => {
 
     try {
         const updatedBootcamp = await bootcampRepository.findByIdAndUpdate(req.params.id, req.body, {
@@ -73,10 +64,8 @@ exports.updateBootcamp = async (req, res) => {
         });
 
         if (!updatedBootcamp) {
-            return res.status(400).json({
-                success: false
-                , message: `could not find any bootcamp for updating from database with ID Number ${req.params.id}`
-            })
+            next(new ErrorResponse(`could not find any bootcamp for updating from database with ID Number ${req.params.id}`
+                , 400))
         }
         res.status(200).json({
             success: true,
@@ -84,13 +73,8 @@ exports.updateBootcamp = async (req, res) => {
             data: updatedBootcamp
         })
     } catch (error) {
-        return res.status(400).json({
-            success: false
-            , message: `Error occurred  ${req.params.id}`,
-            error
-        })
+        next(ErrorResponse(`Error occurred  ${req.params.id}`,400))
     }
-
 
 };
 
@@ -105,10 +89,8 @@ exports.deleteBootcamp = async (req, res, next) => {
         const deletedBootcamp = await bootcampRepository.findByIdAndDelete(req.params.id);
 
         if (!deletedBootcamp) {
-            return res.status(400).json({
-                success: false
-                , message: `could not find any bootcamp for deleting from database with ID Number ${req.params.id}`
-            })
+       return  next(new ErrorResponse(`could not find any bootcamp for deleting from database with ID Number ${req.params.id}`
+       ,400))
         }
         res.status(200).json({
             success: true,
@@ -116,10 +98,6 @@ exports.deleteBootcamp = async (req, res, next) => {
             data: {}
         })
     } catch (error) {
-        return res.status(400).json({
-            success: false
-            , message: `Error occurred for delete the bootcamp  ${req.params.id}`,
-            error
-        })
+     return next(ErrorResponse(`Error occurred for delete the bootcamp  ${req.params.id}`,400))
     }
 };
