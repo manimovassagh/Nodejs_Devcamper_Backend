@@ -11,7 +11,8 @@ exports.getBootcamps = async (req, res, next) => {
         res.status(200).json({success: true, 'number of bootcamps': bootcamps.length, data: bootcamps});
     } catch (error) {
         // res.status(400).json({success: false, message: 'could not fetch any bootcamp from database'})
-        next(new ErrorResponse(`could not fetch Bootcamps from Database : ${error.message}`, 404));
+       // next(new ErrorResponse(`could not fetch Bootcamps from Database : ${error.message}`, 404));
+        next(error)
     }
 
 };
@@ -31,7 +32,8 @@ exports.getBootcamp = async (req, res, next) => {
         res.status(200).json({success: true, data: bootcampByID})
 
     } catch (error) {
-        next(new ErrorResponse(`Bad Request: Please Enter a valid ID`, 404))
+        //next(new ErrorResponse(`Bad Request: Please Enter a valid ID`, 404))
+        next(error)
     }
 };
 
@@ -64,7 +66,7 @@ exports.updateBootcamp = async (req, res, next) => {
         });
 
         if (!updatedBootcamp) {
-            next(new ErrorResponse(`could not find any bootcamp for updating from database with ID Number ${req.params.id}`
+           return  next(new ErrorResponse(`could not find any bootcamp for updating from database with ID Number ${req.params.id}`
                 , 400))
         }
         res.status(200).json({
@@ -73,7 +75,8 @@ exports.updateBootcamp = async (req, res, next) => {
             data: updatedBootcamp
         })
     } catch (error) {
-        next(ErrorResponse(`Error occurred  ${req.params.id}`,400))
+        //next(ErrorResponse(`Error occurred  ${req.params.id}`,400))
+        next(error)
     }
 
 };
@@ -98,6 +101,7 @@ exports.deleteBootcamp = async (req, res, next) => {
             data: {}
         })
     } catch (error) {
-     return next(ErrorResponse(`Error occurred for delete the bootcamp  ${req.params.id}`,400))
+    // return next(ErrorResponse(`Error occurred for delete the bootcamp  ${req.params.id}`,400))
+        next(error)
     }
 };
