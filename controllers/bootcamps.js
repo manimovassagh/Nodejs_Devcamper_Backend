@@ -65,7 +65,7 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
-    
+
     const deletedBootcamp = await bootcampRepository.findByIdAndDelete(req.params.id);
 
     if (!deletedBootcamp) {

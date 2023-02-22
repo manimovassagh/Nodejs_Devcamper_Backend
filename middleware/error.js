@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
     error.message=err.message
 
     //Mongoose bad ObjectID
-    console.log(error)
+    console.log(error.message.red)
     if(err.name=== 'CastError'){
         const message=`Please Enter a valid ID : This ID ${err.value} is not valid`;
         error= new ErrorResponse(message,404)
