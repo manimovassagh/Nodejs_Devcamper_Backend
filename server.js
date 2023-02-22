@@ -13,12 +13,13 @@ dotenv.config({ path: "./config/config.env" });
 const bootcamps = require("./routes/bootcamps");
 
 
-
 //init the express app
 const app = express();
 
 //connect to MongoDB
-connectDB();
+connectDB().catch((error)=>{
+  console.log(`Error in connecting to DB : ${error}`.red)
+})
 
 //body parser
 // parse application/json
