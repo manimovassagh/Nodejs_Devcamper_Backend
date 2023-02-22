@@ -31,12 +31,12 @@
 					"response": []
 				},
 				{
-					"name": "Get one Bootcamps",
+					"name": "Get all Bootcamps By Radius",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{home}}/api/v1/bootcamps/2",
+							"raw": "{{home}}/api/v1/bootcamps/radius/02118/30",
 							"host": [
 								"{{home}}"
 							],
@@ -44,10 +44,77 @@
 								"api",
 								"v1",
 								"bootcamps",
-								"2"
+								"radius",
+								"02118",
+								"30"
+							]
+						},
+						"description": "get bootcamps base on the radius and distance"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps By Radius Error check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/radius/90210/30",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"radius",
+								"90210",
+								"30"
+							]
+						},
+						"description": "Error checker : get bootcamps base on the radius and distance\n\n###"
+					},
+					"response": []
+				},
+				{
+					"name": "Get one Bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/63f3fdd5766233143c503cdd",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"63f3fdd5766233143c503cdd"
 							]
 						},
 						"description": "Get specific bootcamp from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get one Bootcamp Error Handler Checker",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/63f3fdd5766233143c503cddqweqwe",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"63f3fdd5766233143c503cddqweqwe"
+							]
+						},
+						"description": "Error checker: Get specific bootcamp from database"
 					},
 					"response": []
 				},
@@ -64,7 +131,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"name\": \"Devcentral Bootcamp\",\n\t\t\"description\": \"Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in front end and full stack web development\",\n\t\t\"website\": \"https://devcentral.com\",\n\t\t\"phone\": \"(444) 444-4444\",\n\t\t\"email\": \"enroll@devcentral.com\",\n\t\t\"address\": \"45 Upper College Rd Kingston RI 02881\",\n\t\t\"careers\": [\n\t\t\t\"Mobile Development\",\n\t\t\t\"Web Development\",\n\t\t\t\"Data Science\",\n\t\t\t\"Business\"\n\t\t],\n\t\t\"housing\": false,\n\t\t\"jobAssistance\": true,\n\t\t\"jobGuarantee\": true,\n\t\t\"acceptGi\": true\n}",
+							"raw": "{\n\"name\": \"Codemasters bootcamp\",\n            \"description\": \"Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in full stack web development and data science\",\n            \"website\": \"https://codemasters.com\",\n            \"phone\": \"(333) 333-3333\",\n            \"email\": \"enroll@codemasters.com\",\n            \"address\": \"85 South Prospect Street Burlington VT 05405\",\n            \"careers\": [\n                \"Mobile Development\",\n                \"Web Development\",\n                \"UI/UX\"\n            ],\n            \"photo\": \"no-photo.jpg\",\n            \"housing\": true,\n            \"jobAssistance\": true,\n            \"jobGuarantee\": false,\n            \"acceptGi\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -87,12 +154,63 @@
 					"response": []
 				},
 				{
+					"name": "Create Bootcamp with Error",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							]
+						},
+						"description": "Create a new false bootcamop and check the eoor handling"
+					},
+					"response": []
+				},
+				{
 					"name": "Edit one Bootcamp",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Json type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\t\"careers\": [\n\t\t\t\"Mobile Development\",\n\t\t\t\"Web Development\",\n\t\t\t\n\t\t]\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{home}}/api/v1/bootcamps/1",
+							"raw": "{{home}}/api/v1/bootcamps/63f3fdd5766233143c503cdd",
 							"host": [
 								"{{home}}"
 							],
@@ -100,7 +218,7 @@
 								"api",
 								"v1",
 								"bootcamps",
-								"1"
+								"63f3fdd5766233143c503cdd"
 							]
 						},
 						"description": "Edit specific bootcap base on bootcamp ID"
@@ -113,7 +231,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{home}}/api/v1/bootcamps/1",
+							"raw": "{{home}}/api/v1/bootcamps/63f53b25fd3c6ffe9d45fd86",
 							"host": [
 								"{{home}}"
 							],
@@ -121,7 +239,7 @@
 								"api",
 								"v1",
 								"bootcamps",
-								"1"
+								"63f53b25fd3c6ffe9d45fd86"
 							]
 						},
 						"description": "Delete a bootcamp"
