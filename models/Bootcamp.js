@@ -113,5 +113,6 @@ BootcampSchema.pre('save', function (next) {
     this.slug = slugify(this.name,{lower:true})
     next();
 });
+//Geocode & create location field
 
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
