@@ -48,8 +48,9 @@ exports.createBootcamp = async (req, res, next) => {
         res.status(201).json({success: true, data: createdBootcamp});
     } catch (error) {
         console.log(`Error in Creating a new Bootcamp:  ${error.message}`.red.bold);
+        next(error)
     }
-    next();
+
 };
 
 /**
@@ -101,7 +102,6 @@ exports.deleteBootcamp = async (req, res, next) => {
             data: {}
         })
     } catch (error) {
-    // return next(ErrorResponse(`Error occurred for delete the bootcamp  ${req.params.id}`,400))
         next(error)
     }
 };
