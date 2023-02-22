@@ -4,7 +4,7 @@ const morgan = require("morgan");
 require("colors");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
-
+const errorHandler=require('./middleware/error')
 //Route files
 const bootcamps = require("./routes/bootcamps");
 
@@ -28,6 +28,9 @@ if (process.env.NODE_ENV === "development") {
 
 //Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
+
+//errorHandle middlewares
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 const server = app.listen(4000, () => {
