@@ -5,11 +5,14 @@ require("colors");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const errorHandler=require('./middleware/error')
-//Route files
-const bootcamps = require("./routes/bootcamps");
 
 //init dotenv
 dotenv.config({ path: "./config/config.env" });
+
+//Route files
+const bootcamps = require("./routes/bootcamps");
+
+
 
 //init the express app
 const app = express();
