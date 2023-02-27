@@ -52,27 +52,25 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
   });
 });
 
-/*
- * @desc    add single courses
- * @route   POST /api/v1/bootcamps/:bootcampId/courses
- * @access  Private
- */
+// @desc      Add course
+// @route     POST /api/v1/bootcamps/:bootcampId/courses
+// @access    Private
 exports.addCourse = asyncHandler(async (req, res, next) => {
-  console.log(req.parmas);
-  req.body.bootcamp = req.params.bootcampId;
+  req.body.bootcamp = req.params.bootcamps;
+  console.log(req.params);
+  const bootcamp = await Bootcamp.findById(req.params.bootcamps);
 
-  const bootcamp = await Bootcamp.findById(req.params.id).populate({
-    path: "bootcamp",
-    select: "name description",
-  });
   if (!bootcamp) {
     return next(
-      new ErrorResponse(`No response with the id of ${req.params.id}`),
-      404
+      new ErrorResponse(
+        `No bootcamp with the id of ${req.params.bootcampId}`,
+        404
+      )
     );
   }
 
   const course = await Course.create(req.body);
+
   res.status(200).json({
     success: true,
     data: course,
