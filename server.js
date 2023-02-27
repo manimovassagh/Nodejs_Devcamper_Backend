@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
@@ -17,6 +18,9 @@ const courses = require("./routes/courses");
 const app = express();
 
 app.use(fileupload());
+
+//set static folder
+app.use(express.static(path.join(__dirname, "public")));
 
 //connect to MongoDB
 connectDB().catch((error) => {
