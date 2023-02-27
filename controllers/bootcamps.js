@@ -138,9 +138,7 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await bootcampRepository.findById(
-    req.params.id
-  );
+  const bootcamp = await bootcampRepository.findById(req.params.id);
 
   if (!bootcamp) {
     return next(
@@ -150,7 +148,7 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  bootcamp.remove()
+  bootcamp.remove();
   res.status(200).json({
     success: true,
     message: `successfully deleted the bootcamp with ID number ${req.params.id}`,
@@ -181,4 +179,28 @@ exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
     count: bootcamps.length,
     data: bootcamps,
   });
+});
+
+/**
+ * @desc     Upload photo for Bootcamp
+ * @route    PUT  /api/v1/bootcamps/:id/photo
+ * @access   Private
+ */
+exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
+  const bootcamp = await bootcampRepository.findById(req.params.id);
+
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(
+        `could not find any bootcamp for deleting from database with ID Number ${req.params.id}`,
+        400
+      )
+    );
+  }
+
+  if (!req.files) {
+    return next(new ErrorResponse(`Please upload a file`, 400));
+  }
+
+  console.log(req.files);
 });

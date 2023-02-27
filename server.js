@@ -5,7 +5,7 @@ require("colors");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const errorHandler = require("./middleware/error");
-
+const fileupload = require("express-fileupload");
 //init dotenv
 dotenv.config({ path: "./config/config.env" });
 
@@ -16,6 +16,8 @@ const courses = require("./routes/courses");
 //init the express app
 const app = express();
 
+app.use(fileupload());
+
 //connect to MongoDB
 connectDB().catch((error) => {
   console.log(`Error in connecting to DB : ${error}`.red);
@@ -24,7 +26,6 @@ connectDB().catch((error) => {
 //body parser
 // parse application/json
 app.use(bodyParser.json());
-
 //apply middlewares
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
