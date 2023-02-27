@@ -340,7 +340,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{home}}/api/v1/bootcamps/63f3fdd5766233143c503cdd",
+							"raw": "{{home}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8",
 							"host": [
 								"{{home}}"
 							],
@@ -348,7 +348,7 @@
 								"api",
 								"v1",
 								"bootcamps",
-								"63f3fdd5766233143c503cdd"
+								"5d713a66ec8f2b88b8f830b8"
 							]
 						},
 						"description": "Get specific bootcamp from database"
@@ -480,6 +480,84 @@
 							]
 						},
 						"description": "Edit specific bootcap base on bootcamp ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload photo for  Bootcamp Error handling no image file",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Json type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/mani/Downloads/Aufnahmeantrag_2018.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/photo",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713a66ec8f2b88b8f830b8",
+								"photo"
+							]
+						},
+						"description": "Upload photo for  Bootcamp Error handling no image file"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload photo for  Bootcamp",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Json type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/mani/Downloads/Aufnahmeantrag_2018.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/photo",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713a66ec8f2b88b8f830b8",
+								"photo"
+							]
+						},
+						"description": "Upload photo for  Bootcamp Error handling no image file"
 					},
 					"response": []
 				},
@@ -699,12 +777,13 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\n\"tuition\":14780,\n\"minimumSkill\":\"advanced\"\n\n\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -712,7 +791,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{home}}/api/v1/courses/5d725c84c4ded7bcb480eaa0",
+							"raw": "{{home}}/api/v1/courses/5d725a4a7b292f5f8ceff789",
 							"host": [
 								"{{home}}"
 							],
@@ -720,7 +799,7 @@
 								"api",
 								"v1",
 								"courses",
-								"5d725c84c4ded7bcb480eaa0"
+								"5d725a4a7b292f5f8ceff789"
 							]
 						}
 					},
