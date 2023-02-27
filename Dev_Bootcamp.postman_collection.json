@@ -54,6 +54,84 @@
 					"response": []
 				},
 				{
+					"name": "Get all Bootcamps By Average",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?averageCost[lte]=1000",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "averageCost[lte]",
+									"value": "1000"
+								}
+							]
+						},
+						"description": "get bootcamps base on the radius and distance"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps By Average greater than",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?averageCost[gte]=1000",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "averageCost[gte]",
+									"value": "1000"
+								}
+							]
+						},
+						"description": "get bootcamps base on the radius and distance"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps By Town",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?careers[in]=Business",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "careers[in]",
+									"value": "Business"
+								}
+							]
+						},
+						"description": "get bootcamps base on the radius and distance"
+					},
+					"response": []
+				},
+				{
 					"name": "Get all Bootcamps By Radius Error check",
 					"request": {
 						"method": "GET",
