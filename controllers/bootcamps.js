@@ -11,14 +11,9 @@ const Bootcamp = require('../models/Bootcamp')
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
     console.log(req.query)
     let query;
-    let queryStr = JSON.stringify(req.query)
-    // queryStr=queryStr.replace(/\b(gt|g|gte|lt|lte|in)/\b/g , match => `$${match}`);
-    queryStr = queryStr.replace(/"lte"/g, '"$lte"');
-    queryStr = queryStr.replace(/"in"/g, '"$in"');
-    queryStr = queryStr.replace(/"gt"/g, '"$gt"');
-    queryStr = queryStr.replace(/"gte"/g, '"$gte"');
-    queryStr = queryStr.replace(/"lt"/g, '"$lt"');
-    queryStr = queryStr.replace(/"g"/g, '"$g"');
+    const reqQuery = {...req.query}
+    let queryStr = JSON.stringify(reqQuery)
+    queryStr = queryStr.replace(/\b(gt|g|gte|lt|lte|in)\b/g, match => `$${match}`);
     query = Bootcamp.find(JSON.parse(queryStr))
     //const bootcamps = await bootcampRepository.find();
     const bootcamps = await query;
