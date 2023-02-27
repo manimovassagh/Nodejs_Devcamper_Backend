@@ -80,12 +80,12 @@
 					"response": []
 				},
 				{
-					"name": "Get all Bootcamps By Average greater than",
+					"name": "Get all Bootcamps By Average greater than and City",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{home}}/api/v1/bootcamps?averageCost[gte]=1000",
+							"raw": "{{home}}/api/v1/bootcamps?averageCost[gte]=1000&location.city=Boston",
 							"host": [
 								"{{home}}"
 							],
@@ -98,6 +98,40 @@
 								{
 									"key": "averageCost[gte]",
 									"value": "1000"
+								},
+								{
+									"key": "location.city",
+									"value": "Boston"
+								}
+							]
+						},
+						"description": "get bootcamps base on the radius and distance"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps By Career",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?averageCost[gte]=1000&location.city=Boston",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "averageCost[gte]",
+									"value": "1000"
+								},
+								{
+									"key": "location.city",
+									"value": "Boston"
 								}
 							]
 						},
@@ -151,6 +185,92 @@
 							]
 						},
 						"description": "Error checker : get bootcamps base on the radius and distance\n\n###"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps with custom select, only name and description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?select=name,description",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,description"
+								}
+							]
+						},
+						"description": "Get all Bootcamps with custom select, only name and description"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps with custom select, only name and description and housing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?select=name,description,housing&housing=true",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,description,housing"
+								},
+								{
+									"key": "housing",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Get all Bootcamps with custom select, only name and description"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Bootcamps with custom sorting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?select=name,description,housing&sort=name",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,description,housing"
+								},
+								{
+									"key": "sort",
+									"value": "name"
+								}
+							]
+						},
+						"description": "Get all Bootcamps with custom select, only name and description"
 					},
 					"response": []
 				},
