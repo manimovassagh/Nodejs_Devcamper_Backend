@@ -4,22 +4,22 @@ const morgan = require("morgan");
 require("colors");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
-const errorHandler=require('./middleware/error')
+const errorHandler = require("./middleware/error");
 
 //init dotenv
 dotenv.config({ path: "./config/config.env" });
 
 //Route files
 const bootcamps = require("./routes/bootcamps");
-
+const courses = require("./routes/courses");
 
 //init the express app
 const app = express();
 
 //connect to MongoDB
-connectDB().catch((error)=>{
-  console.log(`Error in connecting to DB : ${error}`.red)
-})
+connectDB().catch((error) => {
+  console.log(`Error in connecting to DB : ${error}`.red);
+});
 
 //body parser
 // parse application/json
@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === "development") {
 
 //Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
-
+app.use("/api/v1/courses", courses);
 //errorHandle middlewares
 app.use(errorHandler);
 
