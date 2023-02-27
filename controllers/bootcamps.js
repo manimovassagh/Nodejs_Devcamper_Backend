@@ -1,46 +1,77 @@
 const bootcampRepository = require("../models/Bootcamp");
-const ErrorResponse = require('../utils/errorResponse')
-const asyncHandler = require('../middleware/async')
+const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("../middleware/async");
 const geoCoder = require("../utils/geocoder");
-const Bootcamp = require('../models/Bootcamp')
+const Bootcamp = require("../models/Bootcamp");
 /**
  * @desc    Get All Bootcamps
  * @route   GET /api/v1/bootcamps
  * @access  Public
  */
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
-    let query;
-    const reqQuery = {...req.query}
+  let query;
+  const reqQuery = { ...req.query };
 
-    //create an array of fields to exclude
-    const removeFields = ['select', 'sort'];
+  //create an array of fields to exclude
+  const removeFields = ["select", "sort", "page", "limit"];
 
-    //Loop over remove fields and delete them from request query
-    removeFields.forEach(param => {
-        delete reqQuery[param]
-    })
+  //Loop over remove fields and delete them from request query
+  removeFields.forEach((param) => {
+    delete reqQuery[param];
+  });
 
+  let queryStr = JSON.stringify(reqQuery);
+  queryStr = queryStr.replace(
+    /\b(gt|g|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+  query = Bootcamp.find(JSON.parse(queryStr));
 
-    let queryStr = JSON.stringify(reqQuery);
-    queryStr = queryStr.replace(/\b(gt|g|gte|lt|lte|in)\b/g, match => `$${match}`);
-    query = Bootcamp.find(JSON.parse(queryStr))
+  //Select fields
+  if (req.query.select) {
+    const fields = req.query.select.split(",").join(" ");
+    query = query.select(fields);
+  }
 
-    //Select fields
-    if (req.query.select) {
-        const fields = req.query.select.split(',').join(' ');
-        query = query.select(fields);
+  //Sort fields
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    query = query.sort(sortBy);
+  } else {
+    query = query.sort("-createdAt");
+  }
+
+  //pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 1;
+  const startIndex = (page - 1) * limit;
+  query = query.skip(startIndex).limit(limit);
+  const endIndex = page * limit;
+  const total = await Bootcamp.countDocuments();
+
+  const bootcamps = await query;
+  //pagination result
+  const pagination = {};
+
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+    if (startIndex > 0) {
+      pagination.prev = {
+        page: page - 1,
+        limit,
+      };
     }
+  }
 
-    //Sort fields
-    if (req.query.sort) {
-        const sortBy = req.query.sort.split(',').join(' ');
-        query = query.sort(sortBy);
-    } else {
-        query = query.sort('-createdAt')
-    }
-
-    const bootcamps = await query;
-    res.status(200).json({success: true, 'number of bootcamps': bootcamps.length, data: bootcamps});
+  res.status(200).json({
+    success: true,
+    "number of bootcamps": bootcamps.length,
+    pagination,
+    data: bootcamps,
+  });
 });
 
 /**
@@ -49,14 +80,17 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
  * @access  Public
  */
 exports.getBootcamp = asyncHandler(async (req, res, next) => {
-
-    const bootcampByID = await bootcampRepository.findById(req.params.id);
-    if (!bootcampByID) {
-        return next(new ErrorResponse(`could not find any bootcamp from database with ID Number ${req.params.id}`, 404))
-    }
-    res.status(200).json({success: true, data: bootcampByID})
-
-})
+  const bootcampByID = await bootcampRepository.findById(req.params.id);
+  if (!bootcampByID) {
+    return next(
+      new ErrorResponse(
+        `could not find any bootcamp from database with ID Number ${req.params.id}`,
+        404
+      )
+    );
+  }
+  res.status(200).json({ success: true, data: bootcampByID });
+});
 
 /**
  * @desc     Create new Bootcamp
@@ -64,8 +98,8 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.createBootcamp = asyncHandler(async (req, res, next) => {
-    const createdBootcamp = await bootcampRepository.create(req.body);
-    res.status(201).json({success: true, data: createdBootcamp});
+  const createdBootcamp = await bootcampRepository.create(req.body);
+  res.status(201).json({ success: true, data: createdBootcamp });
 });
 
 /**
@@ -74,21 +108,28 @@ exports.createBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
-
-    const updatedBootcamp = await bootcampRepository.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
-
-    if (!updatedBootcamp) {
-        return next(new ErrorResponse(`could not find any bootcamp for updating from database with ID Number ${req.params.id}`
-            , 400))
+  const updatedBootcamp = await bootcampRepository.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
     }
-    res.status(200).json({
-        success: true,
-        message: `successfully updated the bootcamp with ID number ${req.params.id}`,
-        data: updatedBootcamp
-    })
+  );
+
+  if (!updatedBootcamp) {
+    return next(
+      new ErrorResponse(
+        `could not find any bootcamp for updating from database with ID Number ${req.params.id}`,
+        400
+      )
+    );
+  }
+  res.status(200).json({
+    success: true,
+    message: `successfully updated the bootcamp with ID number ${req.params.id}`,
+    data: updatedBootcamp,
+  });
 });
 
 /**
@@ -97,20 +138,24 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
+  const deletedBootcamp = await bootcampRepository.findByIdAndDelete(
+    req.params.id
+  );
 
-    const deletedBootcamp = await bootcampRepository.findByIdAndDelete(req.params.id);
-
-    if (!deletedBootcamp) {
-        return next(new ErrorResponse(`could not find any bootcamp for deleting from database with ID Number ${req.params.id}`
-            , 400))
-    }
-    res.status(200).json({
-        success: true,
-        message: `successfully deleted the bootcamp with ID number ${req.params.id}`,
-        data: {}
-    })
-})
-
+  if (!deletedBootcamp) {
+    return next(
+      new ErrorResponse(
+        `could not find any bootcamp for deleting from database with ID Number ${req.params.id}`,
+        400
+      )
+    );
+  }
+  res.status(200).json({
+    success: true,
+    message: `successfully deleted the bootcamp with ID number ${req.params.id}`,
+    data: {},
+  });
+});
 
 /**
  * @desc     Get Bootcamp within the radius
@@ -118,24 +163,21 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
  * @access   Private
  */
 exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
-
-    const {zipcode, distance} = req.params;
-    //Get the lat/lng from geocoder
-    const loc = await geoCoder.geocode(zipcode);
-    const lat = loc[0].latitude;
-    const lng = loc[0].longitude;
-    //calc radius using radians
-    //Divide distance by radius of Earth
-    // Radius= 3,963 mi / 6,378 km
-    const radius = distance / 3963
-    const bootcamps = await Bootcamp.find({
-        location: {$geoWithin: {$centerSphere: [[lng, lat], radius]}}
-    })
-    res.status(200).json({
-        success: true,
-        count: bootcamps.length,
-        data: bootcamps,
-
-    })
-
+  const { zipcode, distance } = req.params;
+  //Get the lat/lng from geocoder
+  const loc = await geoCoder.geocode(zipcode);
+  const lat = loc[0].latitude;
+  const lng = loc[0].longitude;
+  //calc radius using radians
+  //Divide distance by radius of Earth
+  // Radius= 3,963 mi / 6,378 km
+  const radius = distance / 3963;
+  const bootcamps = await Bootcamp.find({
+    location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
+  });
+  res.status(200).json({
+    success: true,
+    count: bootcamps.length,
+    data: bootcamps,
+  });
 });
