@@ -8,7 +8,7 @@ const ErrorResponse = require("../utils/errorResponse");
  * @route   GET /api/v1/bootcamps/:bootcampId/courses
  * @access  Public
  */
-exports.getCourses = asyncHandler(async (req, res, next) => {
+exports.getCourse = asyncHandler(async (req, res, next) => {
   const course = await Course.findById(req.params.id).populate({
     path: "bootcamp",
     select: "name description",
