@@ -31,6 +31,32 @@
 					"response": []
 				},
 				{
+					"name": "Get all Bootcamps pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?page=2",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Fetch all bootcamps from database"
+					},
+					"response": []
+				},
+				{
 					"name": "Get all Bootcamps By Radius",
 					"request": {
 						"method": "GET",
@@ -275,6 +301,40 @@
 					"response": []
 				},
 				{
+					"name": "Get all Bootcamps with limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps?page=2&limit=2&select=name",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "select",
+									"value": "name"
+								}
+							]
+						},
+						"description": "Get all Bootcamps with custom select, only name and description"
+					},
+					"response": []
+				},
+				{
 					"name": "Get one Bootcamp",
 					"request": {
 						"method": "GET",
@@ -440,12 +500,233 @@
 								"63f53b25fd3c6ffe9d45fd86"
 							]
 						},
-						"description": "Delete a bootcamp"
+						"description": "Delete a bootcamp base on id"
 					},
 					"response": []
 				}
 			],
 			"description": "Crud function for development bootcamps"
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get all courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Front End Web Development\",\n\t\t\"description\": \"This course will provide you with all of the essentials to become a successful frontend web developer. You will learn to master HTML, CSS and front end JavaScript, along with tools like Git, VSCode and front end frameworks like Vue\",\n\t\t\"weeks\": 8,\n\t\t\"tuition\": 8000,\n\t\t\"minimumSkill\": \"beginner\",\n\t\t\"scholarhipsAvailable\": true,\n\t\t\"bootcamp\": \"5d713995b721c3bb38c1f5d0\",\n\t\t\"user\": \"5d7a514b5d2c12c7449be045\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713a66ec8f2b88b8f830b8",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new course second attemp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"title\": \"Full Stack Web Development\",\n\t\t\"description\": \"In this course you will learn full stack web development, first learning all about the frontend with HTML/CSS/JS/Vue and then the backend with Node.js/Express/MongoDB\",\n\t\t\"weeks\": 12,\n\t\t\"tuition\": 10000,\n\t\t\"minimumSkill\": \"intermediate\",\n\t\t\"scholarhipsAvailable\": true,\n\t\t\"bootcamp\": \"5d713995b721c3bb38c1f5d0\",\n\t\t\"user\": \"5d7a514b5d2c12c7449be045\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713a66ec8f2b88b8f830b8",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get single course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get courses for specific bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a1b7b292f5f8ceff788",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get courses for specific bootcamp Error check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{home}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788qweqw/courses",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a1b7b292f5f8ceff788qweqw",
+								"courses"
+							]
+						},
+						"description": "get all courses from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a course",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\"tuition\":14780,\n\"minimumSkill\":\"advanced\"\n\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/courses/5d725c84c4ded7bcb480eaa0",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5d725c84c4ded7bcb480eaa0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a course",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\"tuition\":14780,\n\"minimumSkill\":\"advanced\"\n\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{home}}/api/v1/courses/5d725c84c4ded7bcb480eaa0",
+							"host": [
+								"{{home}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5d725c84c4ded7bcb480eaa0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
