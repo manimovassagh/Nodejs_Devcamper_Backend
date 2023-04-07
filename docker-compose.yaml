@@ -1,0 +1,6 @@
+version: '3'
+services:
+  mani-Nodejs-app:
+    image: manimovassagh/node-web-app:latest
+    ports:
+      - 8080:8080
